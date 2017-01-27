@@ -14,10 +14,11 @@ default: netradiant
 netradiant:
 	@install -dv build
 	@cd build && cmake -DCMAKE_BUILD_TYPE=Debug\
-	                   -DDOWNLOAD_GAMEPACKS=ON\
-	                   -DRADIANT_ABOUTMSG="Lorem Ipsum..."\
+	                   -DDOWNLOAD_GAMEPACKS=OFF\
 	                   ..
 	@cd build && cmake --build . -- -j4
+	@install -dv build/games
+	@./install-gamepacks.sh build
 	@echo "[ [32mOK[0m ]"
 
 
