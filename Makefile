@@ -23,6 +23,17 @@ radiant:
 	@echo "[ [32mOK[0m ]"
 
 
+.PHONY: radiant.exe
+radiant.exe:
+	@install -dv build
+	@cd build && cmake -G "Unix Makefiles"\
+	                   -DCMAKE_BUILD_TYPE=Debug\
+	                   -DCMAKE_TOOLCHAIN_FILE=../cmake/cross-toolchain-mingw64.cmake\
+	                   ..
+	@cd build && cmake --build . -- -j$(shell nproc)
+	@echo "[ [32mOK[0m ]"
+
+
 .PHONY: q3map2
 q3map2:
 	@install -dv build
