@@ -24,5 +24,6 @@
   entities="quake3"
   brushtypes="quake3"
   patchtypes="quake3"
+  forbidden_paths="unrealarena_*.pk3"
   q3map2_type="unrealarena"
 />
