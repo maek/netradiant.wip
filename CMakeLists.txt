@@ -13,10 +13,9 @@ option(BUILD_RADIANT "Build the gui" ON)
 #-----------------------------------------------------------------------
 
 # CMake 3.0+ would allow this in project()
-set(NetRadiant_VERSION_MAJOR 1)
-set(NetRadiant_VERSION_MINOR 5)
-set(NetRadiant_VERSION_PATCH 0)
-set(NetRadiant_VERSION "${NetRadiant_VERSION_MAJOR}.${NetRadiant_VERSION_MINOR}.${NetRadiant_VERSION_PATCH}")
+set(NetRadiant_VERSION_MAJOR 5)
+set(NetRadiant_VERSION_MINOR 0)
+set(NetRadiant_VERSION "1.${NetRadiant_VERSION_MAJOR}.${NetRadiant_VERSION_MINOR}")
 
 file(WRITE "${PROJECT_BINARY_DIR}/RADIANT_MAJOR" ${NetRadiant_VERSION_MAJOR})
 file(WRITE "${PROJECT_BINARY_DIR}/RADIANT_MINOR" ${NetRadiant_VERSION_MINOR})
@@ -68,7 +67,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE 1)
 # Defs
 #-----------------------------------------------------------------------
 
-add_definitions(-DRADIANT_VERSION="${NetRadiant_VERSION}")
+add_definitions(-DRADIANT_VERSION="${RADIANT_VERSION_STRING}")
 add_definitions(-DRADIANT_MAJOR_VERSION="${NetRadiant_VERSION_MAJOR}")
 add_definitions(-DRADIANT_MINOR_VERSION="${NetRadiant_VERSION_MINOR}")
 
