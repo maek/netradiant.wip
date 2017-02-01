@@ -12,3 +12,5 @@ radiant_plugin(md3model
         model.cpp model.h
         plugin.cpp plugin.h
         )
+
+install(TARGETS md3model DESTINATION modules)

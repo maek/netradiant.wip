@@ -127,3 +127,5 @@ target_link_libraries(radiant
 if (X11_LIBRARIES)
     target_link_libraries(radiant ${X11_LIBRARIES})
 endif ()
+
+install(TARGETS radiant DESTINATION .)

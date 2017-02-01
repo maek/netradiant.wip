@@ -177,3 +177,5 @@ if (UNIX)
     target_link_libraries(q3map2 pthread m)
     target_link_libraries(q3data m)
 endif ()
+
+install(TARGETS q3map2 q3data DESTINATION .)

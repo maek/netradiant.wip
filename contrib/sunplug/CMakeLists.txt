@@ -4,3 +4,5 @@ radiant_plugin(sunplug
 
 target_include_directories(sunplug PRIVATE uilib)
 target_link_libraries(sunplug PRIVATE uilib)
+
+install(TARGETS sunplug DESTINATION plugins)

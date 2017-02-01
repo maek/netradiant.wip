@@ -3,3 +3,5 @@ radiant_plugin(imageq2
         wal.cpp wal.h
         wal32.cpp wal32.h
         )
+
+install(TARGETS imageq2 DESTINATION modules)

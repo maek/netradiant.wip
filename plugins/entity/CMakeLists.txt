@@ -23,3 +23,5 @@ radiant_plugin(entity
         skincache.cpp skincache.h
         targetable.cpp targetable.h
         )
+
+install(TARGETS entity DESTINATION modules)

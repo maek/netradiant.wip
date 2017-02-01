@@ -35,3 +35,5 @@ target_link_libraries(bobtoolz PRIVATE uilib)
 
 target_include_directories(bobtoolz PRIVATE mathlib)
 target_link_libraries(bobtoolz PRIVATE mathlib)
+
+install(TARGETS bobtoolz DESTINATION plugins)

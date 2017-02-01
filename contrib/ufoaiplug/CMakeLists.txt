@@ -7,3 +7,5 @@ radiant_plugin(ufoaiplug
 
 target_include_directories(ufoaiplug PRIVATE uilib)
 target_link_libraries(ufoaiplug PRIVATE uilib)
+
+install(TARGETS ufoaiplug DESTINATION plugins)

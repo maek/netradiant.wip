@@ -3,3 +3,5 @@ radiant_plugin(archivewad
         plugin.cpp plugin.h
         wad.cpp wad.h
         )
+
+install(TARGETS archivewad DESTINATION modules)

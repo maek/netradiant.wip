@@ -7,3 +7,5 @@ target_link_libraries(shaderplug PRIVATE uilib)
 
 target_include_directories(shaderplug PRIVATE xmllib)
 target_link_libraries(shaderplug PRIVATE xmllib)
+
+install(TARGETS shaderplug DESTINATION plugins)

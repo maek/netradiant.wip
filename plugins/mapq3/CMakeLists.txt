@@ -3,3 +3,5 @@ radiant_plugin(mapq3
         plugin.cpp plugin.h
         write.cpp write.h
         )
+
+install(TARGETS mapq3 DESTINATION modules)

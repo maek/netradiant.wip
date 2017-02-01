@@ -4,3 +4,5 @@ radiant_plugin(imagehl
         mip.cpp mip.h
         sprite.cpp sprite.h
         )
+
+install(TARGETS imagehl DESTINATION modules)

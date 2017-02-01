@@ -8,3 +8,5 @@ radiant_plugin(archivezip
 find_package(ZLIB REQUIRED)
 target_include_directories(archivezip PRIVATE ${ZLIB_INCLUDE_DIRS})
 target_link_libraries(archivezip PRIVATE ${ZLIB_LIBRARIES})
+
+install(TARGETS archivezip DESTINATION modules)

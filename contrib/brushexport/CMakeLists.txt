@@ -8,3 +8,5 @@ radiant_plugin(brushexport
 
 target_include_directories(brushexport PRIVATE uilib)
 target_link_libraries(brushexport PRIVATE uilib)
+
+install(TARGETS brushexport DESTINATION plugins)

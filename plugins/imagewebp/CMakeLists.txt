@@ -5,3 +5,5 @@ radiant_plugin(imagewebp
 find_package(WEBP REQUIRED)
 target_include_directories(imagewebp PRIVATE ${WEBP_INCLUDE_DIR})
 target_link_libraries(imagewebp PRIVATE ${WEBP_LIBRARIES})
+
+install(TARGETS imagewebp DESTINATION modules)

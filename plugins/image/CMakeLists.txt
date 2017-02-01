@@ -11,3 +11,5 @@ radiant_plugin(image
 find_package(JPEG REQUIRED)
 target_include_directories(image PRIVATE ${JPEG_INCLUDE_DIR})
 target_link_libraries(image PRIVATE ddslib etclib ${JPEG_LIBRARIES})
+
+install(TARGETS image DESTINATION modules)

@@ -5,3 +5,5 @@ radiant_plugin(model
 
 target_include_directories(model PRIVATE picomodel)
 target_link_libraries(model PRIVATE picomodel)
+
+install(TARGETS model DESTINATION modules)

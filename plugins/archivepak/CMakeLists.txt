@@ -3,3 +3,5 @@ radiant_plugin(archivepak
         pak.cpp pak.h
         plugin.cpp plugin.h
         )
+
+install(TARGETS archivepak DESTINATION modules)

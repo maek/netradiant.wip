@@ -26,7 +26,7 @@ radiant: | $(BUILDDIR)
 .PHONY: radiant.exe
 radiant.exe: | $(BUILDDIR)
 	@test -f "$(BUILDDIR)/Makefile" ||\
-	(cd "$(BUILDDIR)" && cmake -DCMAKE_BUILD_TYPE=Release\
+	(cd "$(BUILDDIR)" && cmake -DCMAKE_BUILD_TYPE=Debug\
 	                           -DDOWNLOAD_GAMEPACKS=OFF\
 	                           -DCMAKE_TOOLCHAIN_FILE=../cmake/Toolchain-mingw-w64.cmake\
 	                           ..)
@@ -38,6 +38,16 @@ radiant.exe: | $(BUILDDIR)
 
 $(BUILDDIR):
 	@install -dv "$(BUILDDIR)"
+
+
+.PHONY: install
+install:
+	@cd $(BUILDDIR) && cmake --build . --target install
+
+
+.PHONY: dist
+dist:
+	@cd $(BUILDDIR) && cmake --build . --target package
 
 
 .PHONY: clean

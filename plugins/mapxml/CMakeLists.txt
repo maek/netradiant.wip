@@ -6,3 +6,5 @@ radiant_plugin(mapxml
 
 target_include_directories(mapxml PRIVATE xmllib)
 target_link_libraries(mapxml PRIVATE xmllib)
+
+install(TARGETS mapxml DESTINATION modules)

@@ -166,3 +166,101 @@ add_custom_target(game_packs
 if (DOWNLOAD_GAMEPACKS)
     add_custom_target(game_packs_all ALL DEPENDS game_packs)
 endif ()
+
+#-----------------------------------------------------------------------
+# Install
+#-----------------------------------------------------------------------
+
+# Setup install
+if(MINGW)
+  set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/Dropbox/Unreal Arena/Tools/netradiant")
+elseif(UNIX)
+  set(CMAKE_INSTALL_PREFIX "/tmp/local")
+endif()
+
+install(
+  DIRECTORY
+  "${CMAKE_CURRENT_LIST_DIR}/games/UnrealArenaPack/games"
+  "${CMAKE_CURRENT_LIST_DIR}/games/UnrealArenaPack/unrealarena.game"
+  "${CMAKE_CURRENT_LIST_DIR}/setup/data/tools/bitmaps"
+  "${CMAKE_CURRENT_LIST_DIR}/setup/data/tools/gl"
+  "${CMAKE_CURRENT_LIST_DIR}/setup/data/tools/plugins"
+  "${CMAKE_CURRENT_LIST_DIR}/docs"
+  DESTINATION .
+)
+
+install(
+  FILES
+  "${CMAKE_CURRENT_LIST_DIR}/setup/data/tools/global.xlink"
+  "${CMAKE_CURRENT_LIST_DIR}/setup/data/tools/q3data.qdt"
+  "${CMAKE_CURRENT_LIST_DIR}/RADIANT_MAJOR"
+  "${CMAKE_CURRENT_LIST_DIR}/RADIANT_MINOR"
+  DESTINATION .
+)
+
+if(MINGW)
+install(
+  FILES
+  "${CMAKE_FIND_ROOT_PATH}/etc/fonts/fonts.conf"
+  DESTINATION etc/fonts
+)
+
+install(
+  DIRECTORY
+  "${CMAKE_FIND_ROOT_PATH}/lib/gtk-2.0"
+  DESTINATION lib
+  USE_SOURCE_PERMISSIONS
+)
+
+install(
+  DIRECTORY
+  "${CMAKE_FIND_ROOT_PATH}/share/themes"
+  DESTINATION share
+)
+
+install(
+  PROGRAMS
+  "${CMAKE_FIND_ROOT_PATH}/bin/libatk-1.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libbz2-1.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libcairo-2.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libexpat-1.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libffi-6.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libfontconfig-1.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libfreetype-6.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libgcc_s_seh-1.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libgdkglext-win32-1.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libgdk_pixbuf-2.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libgdk-win32-2.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libgio-2.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libglib-2.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libgmodule-2.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libgobject-2.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libgraphite2.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libgtkglext-win32-1.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libgtk-win32-2.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libharfbuzz-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libiconv-2.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libintl-8.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libjasper-1.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libjpeg-8.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/liblzma-5.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libpango-1.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libpangocairo-1.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libpangoft2-1.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libpangowin32-1.0-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libpcre-1.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libpixman-1-0.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libpng16-16.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libstdc++-6.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libwebp-6.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libwinpthread-1.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libxml2-2.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/zlib1.dll"
+  DESTINATION .
+)
+endif()
+
+# Setup CPack
+set(CPACK_GENERATOR "ZIP")
+set(CPACK_PACKAGE_VERSION "1.5.x")
+include(CPack)

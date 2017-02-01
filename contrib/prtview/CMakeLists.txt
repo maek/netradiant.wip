@@ -11,3 +11,5 @@ target_link_libraries(prtview PRIVATE uilib)
 
 target_include_directories(prtview PRIVATE profile)
 target_link_libraries(prtview PRIVATE profile)
+
+install(TARGETS prtview DESTINATION plugins)
