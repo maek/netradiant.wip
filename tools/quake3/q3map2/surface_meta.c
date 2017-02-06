@@ -952,7 +952,8 @@ void MakeEntityMetaTriangles( entity_t *e ){
 
 typedef struct edge_s
 {
-	vec3_t origin, edge;
+	vec3_t origin;
+	vec4_t edge;
 	vec_t length, kingpinLength;
 	int kingpin;
 	vec4_t plane;
@@ -1704,8 +1705,8 @@ static void MetaTrianglesToSurface( int numPossibles, metaTriangle_t *possibles,
 		ClearBounds( ds->mins, ds->maxs );
 
 		/* clear verts/indexes */
-		memset( verts, 0, sizeof( verts ) );
-		memset( indexes, 0, sizeof( indexes ) );
+		memset( verts, 0, sizeof( *verts ) * maxSurfaceVerts );
+		memset( indexes, 0, sizeof( *indexes ) * maxSurfaceIndexes );
 
 		/* add the first triangle */
 		if ( AddMetaTriangleToSurface( ds, seed, qfalse ) ) {
