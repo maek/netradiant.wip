@@ -4,7 +4,7 @@
 <!-- [EnginePath]  : path to game data -->
 
 <project version="2.0">
-<var name="q3map2">"[RadiantPath]q3map2.[ExecutableType]" -v<cond value="[MonitorAddress]"> -connect [MonitorAddress]</cond> -game unrealarena -fs_basepath "[EnginePath]" -fs_homepath "[UserEnginePath]" <cond value="[GameName]"> -fs_game [GameName]</cond></var>
+<var name="q3map2">"[RadiantPath]q3map2.[ExecutableType]" -v<cond value="[MonitorAddress]"> -connect [MonitorAddress]</cond> -game unrealarena -fs_basepath "[EnginePath]" -fs_homepath "[UserEnginePath]"<cond value="[GameName]"> -fs_game [GameName]</cond></var>
 
 <build name="build without visibility or lights">
 <command>[q3map2] -meta "[MapFile]"</command>
