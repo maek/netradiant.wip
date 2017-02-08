@@ -172,10 +172,10 @@ endif ()
 #-----------------------------------------------------------------------
 
 # Setup install
-if(MINGW)
+if(UNIX)
+  set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/.local/vendor/netradiant")
+elseif(MINGW)
   set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/Dropbox/Unreal Arena/Tools/netradiant")
-elseif(UNIX)
-  set(CMAKE_INSTALL_PREFIX "/tmp/local")
 endif()
 
 install(

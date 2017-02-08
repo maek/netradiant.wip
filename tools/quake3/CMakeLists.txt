@@ -179,3 +179,12 @@ if (UNIX)
 endif ()
 
 install(TARGETS q3map2 q3data DESTINATION .)
+
+if(UNIX)
+  install(
+    FILES
+    ${PROJECT_BINARY_DIR}/q3map2.x86_64
+    ${PROJECT_BINARY_DIR}/q3data.x86_64
+    DESTINATION .
+  )
+endif()
