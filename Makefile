@@ -5,7 +5,7 @@
 
 SHELL = /bin/sh
 BUILDDIR = $(CURDIR)/build
-CONFIGURATION = Debug
+CONFIGURATION = Release
 
 
 .PHONY: default
