@@ -182,6 +182,10 @@ install(
   DIRECTORY
   "${CMAKE_CURRENT_LIST_DIR}/games/UnrealArenaPack/games"
   "${CMAKE_CURRENT_LIST_DIR}/games/UnrealArenaPack/unrealarena.game"
+  "${CMAKE_CURRENT_LIST_DIR}/games/UnvanquishedPack/games"
+  "${CMAKE_CURRENT_LIST_DIR}/games/UnvanquishedPack/unvanquished.game"
+  "${CMAKE_CURRENT_LIST_DIR}/games/XonoticPack/games"
+  "${CMAKE_CURRENT_LIST_DIR}/games/XonoticPack/xonotic.game"
   "${CMAKE_CURRENT_LIST_DIR}/setup/data/tools/bitmaps"
   "${CMAKE_CURRENT_LIST_DIR}/setup/data/tools/gl"
   "${CMAKE_CURRENT_LIST_DIR}/setup/data/tools/plugins"
