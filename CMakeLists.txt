@@ -245,7 +245,7 @@ install(
   "${CMAKE_FIND_ROOT_PATH}/bin/libharfbuzz-0.dll"
   "${CMAKE_FIND_ROOT_PATH}/bin/libiconv-2.dll"
   "${CMAKE_FIND_ROOT_PATH}/bin/libintl-8.dll"
-  "${CMAKE_FIND_ROOT_PATH}/bin/libjasper-1.dll"
+  "${CMAKE_FIND_ROOT_PATH}/bin/libjasper.dll"
   "${CMAKE_FIND_ROOT_PATH}/bin/libjpeg-8.dll"
   "${CMAKE_FIND_ROOT_PATH}/bin/liblzma-5.dll"
   "${CMAKE_FIND_ROOT_PATH}/bin/libpango-1.0-0.dll"
