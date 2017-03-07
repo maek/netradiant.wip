@@ -622,7 +622,10 @@ int main( int argc, char* argv[] ){
 
 	hide_splash();
 
-	if ( g_bLoadLastMap && !g_strLastMap.empty() ) {
+	if ( !g_strMap.empty() ) {
+		Map_LoadFile( g_strMap.c_str() );
+	}
+	else if ( g_bLoadLastMap && !g_strLastMap.empty() ) {
 		Map_LoadFile( g_strLastMap.c_str() );
 	}
 	else

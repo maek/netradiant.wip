@@ -32,6 +32,8 @@
 int g_argc;
 char** g_argv;
 
+CopiedString g_strMap;
+
 void args_init( int argc, char* argv[] ){
 	int i, j, k;
 
@@ -250,6 +252,12 @@ void environment_init( int argc, char* argv[] ){
 		home_path = home.c_str();
 	}
 	gamedetect();
+
+	if ( g_argc == 2 ) {
+		if ( file_exists(g_argv[1]) ) {
+			g_strMap = g_argv[1];
+		}
+	}
 }
 
 #elif defined( WIN32 )
