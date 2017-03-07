@@ -1088,7 +1088,7 @@ static void ParseShaderFile( const char *filename ){
 			else if ( !Q_stricmp( token, "surfaceparm" ) ) {
 				GetTokenAppend( shaderText, qfalse );
 				if ( ApplySurfaceParm( token, &si->contentFlags, &si->surfaceFlags, &si->compileFlags ) == qfalse ) {
-					Sys_Printf( "WARNING: Unknown surfaceparm: \"%s\"\n", token );
+					Error( "Unknown surfaceparm: \"%s\"\n", token );
 				}
 			}
 
@@ -1569,7 +1569,7 @@ static void ParseShaderFile( const char *filename ){
 					}
 					else
 					{
-						Sys_Printf( "WARNING: Unknown value for lightmap axis: %s\n", token );
+						Error( "Unknown value for lightmap axis: %s\n", token );
 						VectorClear( si->lightmapAxis );
 					}
 				}
@@ -1729,7 +1729,7 @@ static void ParseShaderFile( const char *filename ){
 					}
 					else
 					{
-						Sys_Printf( "WARNING: Unknown q3map_tcGen method: %s\n", token );
+						Error( "Unknown q3map_tcGen method: %s\n", token );
 						VectorClear( si->vecs[ 0 ] );
 						VectorClear( si->vecs[ 1 ] );
 					}
@@ -1831,7 +1831,7 @@ static void ParseShaderFile( const char *filename ){
 
 					/* unknown */
 					else{
-						Sys_Printf( "WARNING: Unknown colorMod method: %s\n", token );
+						Error( "Unknown colorMod method: %s\n", token );
 					}
 				}
 
@@ -1869,7 +1869,7 @@ static void ParseShaderFile( const char *filename ){
 						TCModRotate( si->mod, a );
 					}
 					else{
-						Sys_Printf( "WARNING: Unknown q3map_tcMod method: %s\n", token );
+						Error( "Unknown q3map_tcMod method: %s\n", token );
 					}
 				}
 
@@ -1959,7 +1959,7 @@ static void ParseShaderFile( const char *filename ){
 					GetTokenAppend( shaderText, qfalse );
 					sprintf( temp, "*mat_%s", token );
 					if ( ApplySurfaceParm( temp, &si->contentFlags, &si->surfaceFlags, &si->compileFlags ) == qfalse ) {
-						Sys_Printf( "WARNING: Unknown material \"%s\"\n", token );
+						Error( "Unknown material \"%s\"\n", token );
 					}
 				}
 

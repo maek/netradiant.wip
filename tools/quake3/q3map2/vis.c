@@ -1164,7 +1164,7 @@ int VisMain( int argc, char **argv ){
 
 		else
 		{
-			Sys_Printf( "WARNING: Unknown option \"%s\"\n", argv[ i ] );
+			Error( "Unknown option \"%s\"\n", argv[ i ] );
 		}
 	}
 

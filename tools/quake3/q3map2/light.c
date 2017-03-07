@@ -2883,7 +2883,7 @@ int LightMain( int argc, char **argv ){
 		/* unhandled args */
 		else
 		{
-			Sys_Printf( "WARNING: Unknown argument \"%s\"\n", argv[ i ] );
+			Error( "Unknown option \"%s\"\n", argv[ i ] );
 		}
 
 	}
