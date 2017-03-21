@@ -2786,6 +2786,7 @@ int LightMain( int argc, char **argv ){
 					Sys_Printf( "Disabling half lambert light angle attenuation\n" );
 				}
 			}
+			i++;
 		}
 		else if ( !strcmp( argv[ i ], "-nostyle" ) || !strcmp( argv[ i ], "-nostyles" ) ) {
 			noStyles = qtrue;
