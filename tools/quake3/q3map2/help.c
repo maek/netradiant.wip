@@ -86,16 +86,16 @@ void HelpOptions(const char* group_name, int indentation, int width, struct Help
 void HelpBsp()
 {
 	struct HelpOption bsp[] = {
-		{"-bsp <filename.map>", "Switch that enters this stage"},
+		{"-bsp <filename.map>", "Switch that enters this stage (this is the default)"},
 		{"-altsplit", "Alternate BSP tree splitting weights (should give more fps)"},
 		{"-bspfile <filename.bsp>", "BSP file to write"},
-		{"-celshader <shadername>", "Sets a global cel shader name"},
+		{"-celshader <shadername>", "Set a global cel shader name"},
 		{"-custinfoparms", "Read scripts/custinfoparms.txt"},
+		{"-de <F>", "Distance epsilon for plane snapping etc."},
 		{"-debuginset", "Push all triangle vertexes towards the triangle center"},
 		{"-debugportals", "Make BSP portals visible in the map"},
 		{"-debugsurfaces", "Color the vertexes according to the index of the surface"},
 		{"-deep", "Use detail brushes in the BSP tree, but at lowest priority (should give more fps)"},
-		{"-de <F>", "Distance epsilon for plane snapping etc."},
 		{"-fakemap", "Write fakemap.map containing all world brushes"},
 		{"-flares", "Turn on support for flares (TEST?)"},
 		{"-flat", "Enable flat shading (good for combining with -celshader)"},
@@ -137,8 +137,8 @@ void HelpVis()
 	struct HelpOption vis[] = {
 		{"-vis <filename.map>", "Switch that enters this stage"},
 		{"-fast", "Very fast and crude vis calculation"},
-		{"-mergeportals", "The less crude half of `-merge`, makes vis sometimes much faster but doesn't hurt fps usually"},
 		{"-merge", "Faster but still okay vis calculation"},
+		{"-mergeportals", "The less crude half of `-merge`, makes vis sometimes much faster but doesn't hurt fps usually"},
 		{"-nopassage", "Just use PortalFlow vis (usually less fps)"},
 		{"-nosort", "Do not sort the portals before calculating vis (usually slower)"},
 		{"-passageOnly", "Just use PassageFlow vis (usually less fps)"},
@@ -158,17 +158,18 @@ void HelpLight()
 		{"-approx <N>", "Vertex light approximation tolerance (never use in conjunction with deluxemapping)"},
 		{"-areascale <F, `-area` F>", "Scaling factor for area lights (surfacelight)"},
 		{"-border", "Add a red border to lightmaps for debugging"},
+		{"-bounce <N>", "Number of bounces for radiosity"},
 		{"-bouncegrid", "Also compute radiosity on the light grid"},
 		{"-bounceonly", "Only compute radiosity"},
 		{"-bouncescale <F>", "Scaling factor for radiosity"},
-		{"-bounce <N>", "Number of bounces for radiosity"},
 		{"-bspfile <filename.bsp>", "BSP file to write"},
-		{"-cheapgrid", "Use `-cheap` style lighting for radiosity"},
 		{"-cheap", "Abort vertex light calculations when white is reached"},
+		{"-cheapgrid", "Use `-cheap` style lighting for radiosity"},
 		{"-compensate <F>", "Lightmap compensate (darkening factor applied after everything else)"},
 		{"-cpma", "CPMA vertex lighting mode"},
 		{"-custinfoparms", "Read scripts/custinfoparms.txt"},
 		{"-dark", "Darken lightmap seams"},
+		{"-debug", "Mark the lightmaps according to the cluster: unmapped clusters get yellow, occluded ones get pink, flooded ones get blue overlay color, otherwise red"},
 		{"-debugaxis", "Color the lightmaps according to the lightmap axis"},
 		{"-debugcluster", "Color the lightmaps according to the index of the cluster"},
 		{"-debugdeluxe", "Show deluxemaps on the lightmap"},
@@ -176,10 +177,9 @@ void HelpLight()
 		{"-debugorigin", "Color the lightmaps according to the origin of the luxels"},
 		{"-debugsurfaces, -debugsurface", "Color the lightmaps according to the index of the surface"},
 		{"-debugunused", "This option does nothing"},
-		{"-debug", "Mark the lightmaps according to the cluster: unmapped clusters get yellow, occluded ones get pink, flooded ones get blue overlay color, otherwise red"},
+		{"-deluxe, -deluxemap", "Enable deluxemapping (light direction maps)"},
 		{"-deluxemode 0", "Use modelspace deluxemaps (DarkPlaces)"},
 		{"-deluxemode 1", "Use tangentspace deluxemaps"},
-		{"-deluxe, -deluxemap", "Enable deluxemapping (light direction maps)"},
 		{"-dirtdebug, -debugdirt", "Store the dirtmaps as lightmaps for debugging"},
 		{"-dirtdepth", "Dirtmapping depth"},
 		{"-dirtgain", "Dirtmapping exponent"},
@@ -191,9 +191,9 @@ void HelpLight()
 		{"-export", "Export lightmaps when compile finished (like `-export` mode)"},
 		{"-exposure <F>", "Lightmap exposure to better support overbright spots"},
 		{"-external", "Force external lightmaps even if at size of internal lightmaps"},
+		{"-extra", "Deprecated alias for `-super 2`"},
 		{"-extravisnudge", "Broken feature to nudge the luxel origin to a better vis cluster"},
 		{"-extrawide", "Deprecated alias for `-super 2 -filter`"},
-		{"-extra", "Deprecated alias for `-super 2`"},
 		{"-fastallocate", "Use `-fastallocate` to trade lightmap size against allocation time (useful with hi res lightmaps on large maps: reduce allocation time from days to minutes for only some extra bytes)"},
 		{"-fastbounce", "Use `-fast` style lighting for radiosity"},
 		{"-faster", "Use a faster falloff curve for lighting; also implies `-fast`"},
@@ -250,48 +250,54 @@ void HelpAnalyze()
 		{"-lumpswap", "Swap byte order in the lumps"},
 	};
 
-	HelpOptions("Analyzing BSP-like file structure", 0, 80, analyze, sizeof(analyze)/sizeof(struct HelpOption));
+	HelpOptions("Analyze a BSP-like file structure", 0, 80, analyze, sizeof(analyze)/sizeof(struct HelpOption));
 }
 
 void HelpScale()
 {
 	struct HelpOption scale[] = {
-		{"-scale <S filename.bsp>", "Scale uniformly"},
-		{"-scale <SX SY SZ filename.bsp>", "Scale non-uniformly"},
-		{"-scale -tex <S filename.bsp>", "Scale uniformly without texture lock"},
-		{"-scale -tex <SX SY SZ filename.bsp>", "Scale non-uniformly without texture lock"},
+		{"-scale <F> <filename.bsp>", "Switch that enters this mode"},
+		{"-scale <FX FY FZ> <filename.bsp>", "Switch that enters this mode (non-uniform scale)"},
+		{"-spawn_ref <F>", "Reference point in spawnpoints (info_player* entities)"},
+		{"-tex", "Scale textures as well (disable texture lock)"},
 	};
-	HelpOptions("Scaling", 0, 80, scale, sizeof(scale)/sizeof(struct HelpOption));
+	HelpOptions("Scale a BSP file", 0, 80, scale, sizeof(scale)/sizeof(struct HelpOption));
 }
 
 void HelpConvert()
 {
 	struct HelpOption convert[] = {
 		{"-convert <filename.bsp>", "Switch that enters this mode"},
-		{"-de <number>", "Distance epsilon for the conversion"},
-		{"-format <converter>", "Select the converter (available: map, ase, or game names)"},
-		{"-ne <F>", "Normal epsilon for the conversion"},
-		{"-shadersasbitmap", "(only for ase) use the shader names as \\*BITMAP key so they work as prefabs"},
+		{"-de <F>", "Distance epsilon"},
+		{"-deluxemapsastexcoord", "Extract deluxemap UV"},
+		{"-format <ase|obj|map|map_bp>", "Select the converter (also a game name)"},
+		{"-lightmapsastexcoord", "Extract lightmap UV"},
+		{"-meta", "Force -meta in the BSP conversion"},
+		{"-ne <F>", "Normal epsilon"},
+		{"-patchmeta", "Force -patchmeta in the BSP conversion"},
+		{"-readbsp", "Force reading a BSP file (default)"},
+		{"-readmap", "Force reading a MAP file"},
+		{"-shadersasbitmap", "Write shader names as \\*BITMAP/map_Kd keys to make prefabs (ase/obj only)"},
 	};
 
-	HelpOptions("Converting & Decompiling", 0, 80, convert, sizeof(convert)/sizeof(struct HelpOption));
+	HelpOptions("Convert/Decompile", 0, 80, convert, sizeof(convert)/sizeof(struct HelpOption));
 }
 
 void HelpExport()
 {
 	struct HelpOption exportl[] = {
-		{"-export <filename.bsp>", "Copies lightmaps from the BSP to `filename/lightmap_0000.tga` ff"}
+		{"-export <filename.bsp>", "Switch that enters this mode"}
 	};
 
-	HelpOptions("Exporting lightmaps", 0, 80, exportl, sizeof(exportl)/sizeof(struct HelpOption));
+	HelpOptions("Export lightmaps from BSP", 0, 80, exportl, sizeof(exportl)/sizeof(struct HelpOption));
 }
 
 void HelpExportEnts()
 {
 	struct HelpOption exportents[] = {
-		{"-exportents <filename.bsp>", "Exports the entities to a text file (.ent)"},
+		{"-exportents <filename.bsp>", "Switch that enters this mode"},
 	};
-	HelpOptions("ExportEnts Stage", 0, 80, exportents, sizeof(exportents)/sizeof(struct HelpOption));
+	HelpOptions("Export entities from BSP", 0, 80, exportents, sizeof(exportents)/sizeof(struct HelpOption));
 }
 
 void HelpFixaas()
@@ -300,7 +306,7 @@ void HelpFixaas()
 		{"-fixaas <filename.bsp>", "Switch that enters this mode"},
 	};
 
-	HelpOptions("Fixing AAS checksum", 0, 80, fixaas, sizeof(fixaas)/sizeof(struct HelpOption));
+	HelpOptions("Fix AAS checksum", 0, 80, fixaas, sizeof(fixaas)/sizeof(struct HelpOption));
 }
 
 void HelpInfo()
@@ -309,22 +315,22 @@ void HelpInfo()
 		{"-info <filename.bsp>", "Switch that enters this mode"},
 	};
 
-	HelpOptions("Get info about BSP file", 0, 80, info, sizeof(info)/sizeof(struct HelpOption));
+	HelpOptions("Get info about a BSP file", 0, 80, info, sizeof(info)/sizeof(struct HelpOption));
 }
 
 void HelpImport()
 {
 	struct HelpOption import[] = {
-		{"-import <filename.bsp>", "Copies lightmaps from `filename/lightmap_0000.tga` ff into the BSP"},
+		{"-import <filename.bsp>", "Switch that enters this mode"},
 	};
 
-	HelpOptions("Importing lightmaps", 0, 80, import, sizeof(import)/sizeof(struct HelpOption));
+	HelpOptions("Import lightmaps into BSP", 0, 80, import, sizeof(import)/sizeof(struct HelpOption));
 }
 
 void HelpMinimap()
 {
 	struct HelpOption minimap[] = {
-		{"-minimap <filename.bsp>", "Creates a minimap of the BSP, by default writes to `../gfx/filename_mini.tga`"},
+		{"-minimap <filename.bsp>", "Switch that enters this mode"},
 		{"-black", "Write the minimap as a black-on-transparency RGBA32 image"},
 		{"-boost <F>", "Sets the contrast boost value (higher values make a brighter image); contrast boost is somewhat similar to gamma, but continuous even at zero"},
 		{"-border <F>", "Sets the amount of border pixels relative to the total image size"},
@@ -340,7 +346,7 @@ void HelpMinimap()
 		{"-white", "Write the minimap as a white-on-transparency RGBA32 image"},
 	};
 
-	HelpOptions("MiniMap", 0, 80, minimap, sizeof(minimap)/sizeof(struct HelpOption));
+	HelpOptions("Create a minimap", 0, 80, minimap, sizeof(minimap)/sizeof(struct HelpOption));
 }
 
 void HelpCommon()
@@ -348,13 +354,16 @@ void HelpCommon()
 	struct HelpOption common[] = {
 		{"-connect <address>", "Talk to a NetRadiant instance using a specific XML based protocol"},
 		{"-force", "Allow reading some broken/unsupported BSP files e.g. when decompiling, may also crash"},
-		{"-fs_basepath <path>", "Sets the given path as main directory of the game (can be used more than once to look in multiple paths)"},
-		{"-fs_game <gamename>", "Sets a different game directory name (default for Q3A: baseq3, can be used more than once)"},
-		{"-fs_homebase <dir>", "Specifies where the user home directory name is on Linux (default for Q3A: .q3a)"},
-		{"-fs_pakpath <dir>", "Specify a package directory (can be used more than once to look in multiple paths)"},
-		{"-game <gamename>", "Load settings for the given game (default: quake3)"},
-		{"-subdivisions <F>", "multiplier for patch subdivisions quality"},
-		{"-threads <N>", "number of threads to use"},
+		{"-fs_basepath <path>", "Specify the main game directory path (can be used more than once)"},
+		{"-fs_forbiddenpath <pattern>", "Ignore all paths whose last dir matches with pattern (can be used more than once)"},
+		{"-fs_game <dir>", "Specify an additional game directory name (i.e. baseq3, can be used more than once)"},
+		{"-fs_home <path>", "Specify the user home directory (i.e. /home/user)"},
+		{"-fs_homebase <dir>", "Specify the user game directory name (i.e. .q3a)"},
+		{"-fs_homepath <path>", "Specify the user game directory path (i.e. /home/user/.q3a)"},
+		{"-fs_pakpath <path>", "Specify an additional custom path (can be used more than once)"},
+		{"-game <gamename>", "Load settings for the given game (default to quake3)"},
+		{"-subdivisions <N>", "Patch subdivisions tolerance (for -patchmeta)"},
+		{"-threads <N>", "Number of threads to use"},
 		{"-v", "Verbose mode"}
 	};
 
@@ -373,29 +382,29 @@ void HelpMain(const char* arg)
 		{"-bsp", "BSP Stage"},
 		{"-vis", "VIS Stage"},
 		{"-light", "Light Stage"},
-		{"-analyze", "Analyzing BSP-like file structure"},
-		{"-scale", "Scaling"},
-		{"-convert", "Converting & Decompiling"},
-		{"-export", "Exporting lightmaps"},
-		{"-exportents", "Exporting entities"},
-		{"-fixaas", "Fixing AAS checksum"},
-		{"-info", "Get info about BSP file"},
-		{"-import", "Importing lightmaps"},
-		{"-minimap", "MiniMap"},
+		{"-analyze", "Analyze a BSP-like file structure"},
+		{"-convert", "Convert/Decompile"},
+		{"-export", "Export lightmaps from BSP"},
+		{"-exportents", "Export entities from BSP"},
+		{"-fixaas", "Fix AAS checksum"},
+		{"-import", "Import lightmaps into BSP"},
+		{"-info", "Get info about a BSP file"},
+		{"-minimap", "Create a minimap"},
+		{"-scale", "Scale a BSP file"},
 	};
 	void(*help_funcs[])() = {
 		HelpBsp,
 		HelpVis,
 		HelpLight,
 		HelpAnalyze,
-		HelpScale,
 		HelpConvert,
 		HelpExport,
 		HelpExportEnts,
 		HelpFixaas,
-		HelpInfo,
 		HelpImport,
+		HelpInfo,
 		HelpMinimap,
+		HelpScale,
 	};
 
 	if ( arg && strlen(arg) > 0 )
