@@ -64,7 +64,7 @@ void ExportEntities( void ){
 		
         /* sanity check */
         if ( bspEntData == NULL || bspEntDataSize == 0 ) {
-                Sys_Printf( "WARNING: No BSP entity data. aborting...\n" );
+                Error( "No BSP entity data. aborting...\n" );
                 return;
         }
 		

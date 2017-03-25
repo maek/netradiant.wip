@@ -383,7 +383,7 @@ void WriteMapShaderFile( void ){
 	/* open shader file */
 	file = fopen( mapShaderFile, "w" );
 	if ( file == NULL ) {
-		Sys_Printf( "WARNING: Unable to open map shader file %s for writing\n", mapShaderFile );
+		Error( "Unable to open map shader file %s for writing\n", mapShaderFile );
 		return;
 	}
 
@@ -773,7 +773,7 @@ static void LoadShaderImages( shaderInfo_t *si ){
 		if ( si->shaderImage == NULL ) {
 			si->shaderImage = ImageLoad( DEFAULT_IMAGE );
 			if ( warnImage && strcmp( si->shader, "noshader" ) ) {
-				Sys_Printf( "WARNING: Couldn't find image for shader %s\n", si->shader );
+				Error( "Couldn't find image for shader %s\n", si->shader );
 			}
 		}
 
@@ -839,7 +839,7 @@ shaderInfo_t *ShaderInfoForShader( const char *shaderName ){
 
 	/* dummy check */
 	if ( shaderName == NULL || shaderName[ 0 ] == '\0' ) {
-		Sys_Printf( "WARNING: Null or empty shader name\n" );
+		Error( "Null or empty shader name\n" );
 		shaderName = "missing";
 	}
 
@@ -861,7 +861,7 @@ shaderInfo_t *ShaderInfoForShader( const char *shaderName ){
 				/* increase deprecation depth */
 				deprecationDepth++;
 				if ( deprecationDepth == MAX_SHADER_DEPRECATION_DEPTH ) {
-					Sys_Printf( "WARNING: Max deprecation depth of %i is reached on shader '%s'\n", MAX_SHADER_DEPRECATION_DEPTH, shader );
+					Error( "Max deprecation depth of %i is reached on shader '%s'\n", MAX_SHADER_DEPRECATION_DEPTH, shader );
 				}
 				/* search again from beginning */
 				i = -1;
@@ -1584,7 +1584,7 @@ static void ParseShaderFile( const char *filename ){
 					/* must be a power of 2 */
 					if ( ( ( si->lmCustomWidth - 1 ) & si->lmCustomWidth ) ||
 						 ( ( si->lmCustomHeight - 1 ) & si->lmCustomHeight ) ) {
-						Sys_Printf( "WARNING: Non power-of-two lightmap size specified (%d, %d)\n",
+						Error( "Non power-of-two lightmap size specified (%d, %d)\n",
 									si->lmCustomWidth, si->lmCustomHeight );
 						si->lmCustomWidth = lmCustomSize;
 						si->lmCustomHeight = lmCustomSize;
@@ -1982,7 +1982,7 @@ static void ParseShaderFile( const char *filename ){
 				{
 					Sys_FPrintf( SYS_VRB, "Attempting to match %s with a known surfaceparm\n", token );
 					if ( ApplySurfaceParm( &token[ 6 ], &si->contentFlags, &si->surfaceFlags, &si->compileFlags ) == qfalse ) {
-						Sys_Printf( "WARNING: Unknown q3map_* directive \"%s\"\n", token );
+						Error( "Unknown q3map_* directive \"%s\"\n", token );
 					}
 				}
 #endif
@@ -2045,7 +2045,7 @@ static void ParseCustomInfoParms( void ){
 
 	/* any content? */
 	if ( !parsedContent ) {
-		Sys_Printf( "WARNING: Couldn't find valid custom contentsflag section\n" );
+		Error( "Couldn't find valid custom contentsflag section\n" );
 		return;
 	}
 
@@ -2071,7 +2071,7 @@ static void ParseCustomInfoParms( void ){
 
 	/* any content? */
 	if ( !parsedContent ) {
-		Sys_Printf( "WARNING: Couldn't find valid custom surfaceflag section\n" );
+		Error( "Couldn't find valid custom surfaceflag section\n" );
 	}
 }
 

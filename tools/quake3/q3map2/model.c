@@ -58,7 +58,7 @@ void PicoPrintFunc( int level, const char *str ){
 		break;
 
 	case PICO_WARNING:
-		Sys_Printf( "WARNING: %s\n", str );
+		Error( "%s\n", str );
 		break;
 
 	case PICO_ERROR:
@@ -762,7 +762,7 @@ void AddTriangleModels( entity_t *e ){
 		/* get model name */
 		model = ValueForKey( e2, "model" );
 		if ( model[ 0 ] == '\0' ) {
-			Sys_Printf( "WARNING: misc_model at %i %i %i without a model key\n",
+			Error( "misc_model at %i %i %i without a model key\n",
 						(int) origin[ 0 ], (int) origin[ 1 ], (int) origin[ 2 ] );
 			continue;
 		}
@@ -839,7 +839,7 @@ void AddTriangleModels( entity_t *e ){
 				/* split the string */
 				split = strchr( remap->from, ';' );
 				if ( split == NULL ) {
-					Sys_Printf( "WARNING: Shader _remap key found in misc_model without a ; character\n" );
+					Error( "Shader _remap key found in misc_model without a ; character\n" );
 					free( remap );
 					remap = remap2;
 					continue;

@@ -277,7 +277,7 @@ GSList *AddToWadList( GSList *wadlist, const char *shadername, const char *wad )
 		}
 		else
 		{
-			Sys_Printf( "WARNING: Unknown wad file for shader %s\n",shadername );
+			Error( "Unknown wad file for shader %s\n",shadername );
 			return wadlist;
 		}
 
@@ -427,7 +427,7 @@ void UpdateWadKeyPair( void ){
 			}
 			else
 			{
-				Sys_Printf( "WARNING: could not locate wad file %s\n",(char *)wadlist->data );
+				Error( "could not locate wad file %s\n",(char *)wadlist->data );
 				strcat( wads, (char *)wadlist->data );
 			}
 		}

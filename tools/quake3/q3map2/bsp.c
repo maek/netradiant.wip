@@ -193,7 +193,7 @@ static void SetCloneModelNumbers( void ){
 				/* get the model num */
 				value3 = ValueForKey( &entities[ j ], "model" );
 				if ( value3[ 0 ] == '\0' ) {
-					Sys_Printf( "WARNING: Cloned entity %s referenced entity without model\n", value2 );
+					Error( "Cloned entity %s referenced entity without model\n", value2 );
 					continue;
 				}
 				models = atoi( &value2[ 1 ] );
