@@ -41,7 +41,7 @@
 /* path support */
 #define MAX_BASE_PATHS  10
 #define MAX_GAME_PATHS  10
-#define MAX_PAK_PATHS  200
+#define MAX_CUSTOM_PATHS  200
 
 char                    *homePath;
 char installPath[ MAX_OS_PATH ];
@@ -50,8 +50,8 @@ int numBasePaths;
 char                    *basePaths[ MAX_BASE_PATHS ];
 int numGamePaths;
 char                    *gamePaths[ MAX_GAME_PATHS ];
-int numPakPaths;
-char                    *pakPaths[ MAX_PAK_PATHS ];
+int numCustomPaths;
+char                    *customPaths[ MAX_CUSTOM_PATHS ];
 char                    *homeBasePath = NULL;
 
 
@@ -378,21 +378,21 @@ void AddGamePath( char *path ){
 
 
 /*
-   AddPakPath()
-   adds a pak path to the list
+   AddCustomPath()
+   adds a custom path to the list
  */
 
-void AddPakPath( char *path ){
+void AddCustomPath( char *path ){
 	/* dummy check */
-	if ( path == NULL || path[ 0 ] == '\0' || numPakPaths >= MAX_PAK_PATHS ) {
+	if ( path == NULL || path[ 0 ] == '\0' || numCustomPaths >= MAX_CUSTOM_PATHS ) {
 		return;
 	}
 
 	/* add it to the list */
-	pakPaths[ numPakPaths ] = safe_malloc( strlen( path ) + 1 );
-	strcpy( pakPaths[ numPakPaths ], path );
-	CleanPath( pakPaths[ numPakPaths ] );
-	numPakPaths++;
+	customPaths[ numCustomPaths ] = safe_malloc( strlen( path ) + 1 );
+	strcpy( customPaths[ numCustomPaths ], path );
+	CleanPath( customPaths[ numCustomPaths ] );
+	numCustomPaths++;
 }
 
 
@@ -505,13 +505,14 @@ void InitPaths( int *argc, char **argv ){
 			argv[ i ] = NULL;
 		}
 
-		/* -fs_pakpath */
-		else if ( strcmp( argv[ i ], "-fs_pakpath" ) == 0 ) {
+		/* -fs_custompath -fs_pakpath */
+		else if ( strcmp( argv[ i ], "-fs_custompath" ) == 0 ||
+		          strcmp( argv[ i ], "-fs_pakpath" ) == 0 ) {
 			if ( ++i >= *argc ) {
 				Error( "Out of arguments: No path specified after %s.", argv[ i - 1 ] );
 			}
 			argv[ i - 1 ] = NULL;
-			AddPakPath( argv[ i ] );
+			AddCustomPath( argv[ i ] );
 			argv[ i ] = NULL;
 		}
 
@@ -599,15 +600,15 @@ void InitPaths( int *argc, char **argv ){
 	}
 
 	/* initialize vfs paths */
-	if ( numPakPaths > MAX_PAK_PATHS ) {
-		numPakPaths = MAX_PAK_PATHS;
+	if ( numCustomPaths > MAX_CUSTOM_PATHS ) {
+		numCustomPaths = MAX_CUSTOM_PATHS;
 	}
 
-	/* walk the list of pak paths */
-	for ( i = 0; i < numPakPaths; i++ )
+	/* walk the list of custom paths */
+	for ( i = 0; i < numCustomPaths; i++ )
 	{
-		/* initialize this pak path */
-		vfsInitDirectory( pakPaths[ i ] );
+		/* initialize this custom path */
+		vfsInitDirectory( customPaths[ i ] );
 	}
 
 	/* done */
